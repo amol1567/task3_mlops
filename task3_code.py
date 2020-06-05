@@ -68,6 +68,6 @@ print('Test loss:', score[0])
 print('Test accuracy:', score[1])
 
 #Store accuracy in different file
-f=open("/task3_mlops-ws/accuracy.txt" , "w")
+f=open("/task3_mlops-ws/accuracy.txt","w")
 f.write("{}.fromat(accuracy)")
 f.close()
