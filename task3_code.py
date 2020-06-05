@@ -37,11 +37,15 @@ y_train = keras.utils.to_categorical(y_train, num_classes)
 y_test = keras.utils.to_categorical(y_test, num_classes)
 
 model = Sequential()
-model.add(Conv2D(32, kernel_size=(3, 3),
+
+def tweakModel(i):
+    model.add(Conv2D(filters=i*4, kernel_size=(3, 3),
                  activation='relu',
                  input_shape=input_shape))
-model.add(Conv2D(64, (3, 3), activation='relu'))
-model.add(MaxPooling2D(pool_size=(2, 2)))
+    model.add(Conv2D(i*8, (3, 3), activation='relu'))
+    model.add(MaxPooling2D(pool_size=(2, 2)))
+
+tweakModel(i=1)
 
 model.add(Flatten())
 
@@ -59,5 +63,11 @@ model.fit(x_train, y_train,
           validation_data=(x_test, y_test))
 
 score = model.evaluate(x_test, y_test, verbose=0)
+accuracy=score[1]
 print('Test loss:', score[0])
 print('Test accuracy:', score[1])
+
+#Store accuracy in different file
+f=open("/task3_mlops-ws/accuracy.txt" , "w")
+f.write("{}.fromat(accuracy)")
+f.close()
